@@ -2,11 +2,13 @@
 
 A bunch of mods for black ops 2 zombies
 
-## Install Pre-Compiled Mod
+## Install
+
+### With Pre-Compiled Mod
 
 Download the mod binaries from the releases and drag and drop them into `%localappdata%\Plutonium\storage\t6\scripts\zm`, if this destination does not exist, then proceed to create it.
 
-## Install with Compilation
+### Manually Compiling the Mod
 
 1. You can write/download any GSC of your choice. If you are writing it from scratch/have the source code, note that you will need to compile it.
 
@@ -53,3 +55,10 @@ onplayerspawned()
 When launching your server or a custom game, you will know if all has gone well or not if the console prints Custom script 'scripts/mp/yourScriptName' loaded.
 
 ![Script Loaded](images/oVlCBnI.png)
+
+## Available Mods
+
+* Zombie Counter;
+* Health Counter;
+* Unlimited Perks;
+* Tombstone in Solo;
