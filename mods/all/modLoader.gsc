@@ -23,9 +23,11 @@ modLoader(p, l)
 	thread removePerkLimit(l);
 
 	// Mod that adds a zombie counter to the bottom of the screen
+	// p thread zombieCounter(p, l, 0, 190);
 	p thread zombieCounter(p, l, 100, 190);
 
 	// Mod that adds a health counter to the bottom of the screen
+	// p thread healthCounter(p, 0, 190);
 	p thread healthCounter(p, -100, 190);
 
 	// Gives all the perks available in the map to the player
@@ -79,11 +81,11 @@ zombieCounter(p, l, x, y)
 		zombies = l.zombie_total + get_current_zombie_count();
 		if ( zombies > 0 )
 		{
-			p.zombiecounter.label = &"Zombies Left: ^1";
+			p.zombiecounter.label = &"Zombies: ^1";
 		}
 		else
 		{
-			p.zombiecounter.label = &"Zombies Left: ^6";
+			p.zombiecounter.label = &"Zombies: ^6";
 		}
 
 		p.zombiecounter setvalue(zombies);
