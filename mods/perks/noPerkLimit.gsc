@@ -27,6 +27,6 @@ onPlayerSpawned()
 		flag_wait( "initial_blackscreen_passed" );
 
 		// Mod to Remove the Perk Limit
-		level.perk_purchase_limit = 12;
+		level.perk_purchase_limit = 9;
 	}
 }
