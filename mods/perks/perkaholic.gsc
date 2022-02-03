@@ -27,18 +27,15 @@ onPlayerSpawned()
 		// Waits for the black preload screen to pass so it can load the mods
 		flag_wait( "initial_blackscreen_passed" );
 
-		// Mod to Remove the Perk Limit
-		level.perk_purchase_limit = 9;
-
 		// Gives all the perks available in the map to the player
-		giveAllPerks(self, level);
+		perkaholic(self, level);
 	}
 }
 
 /*
  * Function that gives the player all the perks available
  */
-giveAllPerks(p, l)
+perkaholic(p, l)
 {
 	level waittill("start_of_round");
 	if (isDefined(l.zombiemode_using_juggernaut_perk) && l.zombiemode_using_juggernaut_perk)

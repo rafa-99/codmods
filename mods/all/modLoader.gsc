@@ -11,7 +11,7 @@
 modLoader(p, l)
 {
 	// Preloads tombstone before black screen after loading the map
-	activateTombstone(level);
+	//activateTombstone(l);
 
 	////////////////////////////////////////////////////////////////////////
 	// Waits for the black preload screen to pass so it can load the mods //
@@ -19,8 +19,11 @@ modLoader(p, l)
 	flag_wait( "initial_blackscreen_passed" );                            //
 	////////////////////////////////////////////////////////////////////////
 
-	// Mod to Remove the Perk Limit
-	thread removePerkLimit(l);
+	// Mod sets a custom Perk Limit
+	thread setPerkLimit(l, 12);
+
+	// Mod that sets the box price
+	//setBoxPrice(l, 950);
 
 	// Mod that adds a zombie counter to the bottom of the screen
 	// p thread zombieCounter(p, l, 0, 190);
@@ -31,7 +34,7 @@ modLoader(p, l)
 	p thread healthCounter(p, -100, 190);
 
 	// Gives all the perks available in the map to the player
-	giveAllPerks(p, l);
+	perkaholic(p, l);
 }
 
 init()
@@ -60,12 +63,13 @@ onPlayerSpawned()
 }
 
 /*
- * Function that removes zombie limit
+ * Function that updates perk limit
  */
-removePerkLimit(l)
+setPerkLimit(l, numberOfPerks)
 {
-	l.perk_purchase_limit = 9;
+	l.perk_purchase_limit = numberOfPerks;
 }
+
 
 /*
  * Function that draws a zombie counter
@@ -140,7 +144,7 @@ activateTombstone(l)
 /*
  * Function that gives the player all the perks available
  */
-giveAllPerks(p, l)
+perkaholic(p, l)
 {
 	level waittill("start_of_round");
 	if (isDefined(l.zombiemode_using_juggernaut_perk) && l.zombiemode_using_juggernaut_perk)
@@ -167,6 +171,18 @@ giveAllPerks(p, l)
 		p doGivePerk("specialty_deadshot");
 	if (isDefined(l.zombiemode_using_tombstone_perk) && l.zombiemode_using_tombstone_perk)
 		p doGivePerk("specialty_scavenger");
+}
+
+/*
+ * Function that sets a custom box price
+ */
+setBoxPrice(l, price)
+{
+	for (i = 0; i < l.chests.size; i++)
+	{
+		level.chests[ i ].zombie_cost = price;
+		level.chests[ i ].old_cost = price;
+	}
 }
 
 // Aux Functions

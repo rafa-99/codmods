@@ -26,15 +26,19 @@ onPlayerSpawned()
 		// Waits for the black preload screen to pass so it can load the mods
 		flag_wait( "initial_blackscreen_passed" );
 
-		// Mod sets a custom Perk Limit
-		thread setPerkLimit(l, 12);
+		// Mod that sets the box price
+		setBoxPrice(l, 950);
 	}
 }
 
 /*
- * Function that update zombie perk limit
+ * Function that sets a custom box price
  */
-setPerkLimit(l, numberOfPerks)
+setBoxPrice(l, price)
 {
-	l.perk_purchase_limit = numberOfPerks;
+	for (i = 0; i < l.chests.size; i++)
+	{
+		level.chests[ i ].zombie_cost = price;
+		level.chests[ i ].old_cost = price;
+	}
 }
