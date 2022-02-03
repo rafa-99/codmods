@@ -60,5 +60,9 @@ When launching your server or a custom game, you will know if all has gone well 
 
 * Zombie Counter;
 * Health Counter;
-* Unlimited Perks;
 * Tombstone in Solo;
+* Perkaholic(All perks in first round);
+* A Cat Has 9 Lifes(Custom amount of lives in Afterlife Mode);
+* Set Allowed Perk Count by Player;
+* Set Initial Player Perks;
+* Set Mystery Box Price;
