@@ -11,7 +11,7 @@ setPerkLimit(l, numberOfPerks)
  */
 zombieCounter(p, l, x, y)
 {
-	p.zombiecounter = drawCounter(p.zombiecounter, x, y);
+	p.zombiecounter = drawCounter(p.zombiecounter, x, y, "Objective", 1.7);
 
 	while(1)
 	{
@@ -37,7 +37,7 @@ zombieCounter(p, l, x, y)
  */
 healthCounter(p, x, y)
 {
-	p.healthcounter = drawCounter(p.healthcounter, x, y);
+	p.healthcounter = drawCounter(p.healthcounter, x, y, "Objective", 1.7);
 
 	while(1)
 	{
@@ -79,12 +79,12 @@ activateTombstone(l)
 /*
  * Function that activates all the perks to the player at the beginning of the first round
  */
-perkaholic(p, l)
+perkaholic(p, l, animation)
 {
 	if (l.round_number == 1)
 	{
 		l waittill("start_of_round");
-		giveAllPerks(p, l);
+		giveAllPerks(p, l, animation);
 	}
 }
 
@@ -119,13 +119,56 @@ catHas9Lifes(p, lifes)
 	}
 }
 
+/*
+ * Function that sets the player camera to third person
+ */
+playThirdPerson(p, crosshair)
+{
+	p setClientThirdPerson(1);
+	
+	if (crosshair)
+	{
+		thread useCrosshairs(p);
+	}
+}
+
+/*
+ * Function that toggles god mode on
+ */
+godMode(p)
+{
+	p enableInvulnerability();
+}
+
+/*
+ * Function that toggles unlimited ammo on
+ */
+unlimitedAmmo(p)
+{
+	for(;;)
+	{
+		wait 0.05;
+		
+		currentWeapon = p getcurrentweapon();
+		if ( currentWeapon != "none" )
+		{
+			p setweaponammoclip( currentWeapon, weaponclipsize(currentWeapon) );
+			p givemaxammo( currentWeapon );
+		}
+
+		currentoffhand = p getcurrentoffhand();
+		if ( currentoffhand != "none" )
+			p givemaxammo( currentoffhand );
+    }
+}
+
 // Aux Functions
 /*
  * Draws the counter in desired position
  */
-drawCounter(counterVar, x, y)
+drawCounter(counterVar, x, y, font, size)
 {
-	counterVar = createfontstring( "Objective", 1.7 );
+	counterVar = createfontstring( font, size );
 	counterVar setpoint( "CENTER", "CENTER", x, y);
 	counterVar.alpha = 1;
 	counterVar.hidewheninmenu = 1;
@@ -327,49 +370,65 @@ turn_tombstone_on()
 /*
  * Function that gives the player all the perks if they are available in the current map
  */
-giveAllPerks(p, l)
+giveAllPerks(p, l, animation)
 {
     if (isDefined(l.zombiemode_using_juggernaut_perk) && l.zombiemode_using_juggernaut_perk)
-         p doGivePerk("specialty_armorvest");
+         p doGivePerk("specialty_armorvest", animation);
     if (isDefined(l._custom_perks) && isDefined(l._custom_perks["specialty_nomotionsensor"]))
-        p doGivePerk("specialty_nomotionsensor");
+        p doGivePerk("specialty_nomotionsensor", animation);
     if (isDefined(l.zombiemode_using_doubletap_perk) && l.zombiemode_using_doubletap_perk) 
-         p doGivePerk("specialty_rof");
+         p doGivePerk("specialty_rof", animation);
     if (isDefined(l.zombiemode_using_marathon_perk) && l.zombiemode_using_marathon_perk)
-        p doGivePerk("specialty_longersprint");
+        p doGivePerk("specialty_longersprint", animation);
     if (isDefined(l.zombiemode_using_sleightofhand_perk) && l.zombiemode_using_sleightofhand_perk)
-        p doGivePerk("specialty_fastreload");
+        p doGivePerk("specialty_fastreload", animation);
     if(isDefined(l.zombiemode_using_additionalprimaryweapon_perk) && l.zombiemode_using_additionalprimaryweapon_perk)
-        p doGivePerk("specialty_additionalprimaryweapon");
+        p doGivePerk("specialty_additionalprimaryweapon", animation);
     if (isDefined(l.zombiemode_using_revive_perk) && l.zombiemode_using_revive_perk)
-       p doGivePerk("specialty_quickrevive");
+       p doGivePerk("specialty_quickrevive", animation);
     if (isDefined(l.zombiemode_using_chugabud_perk) && l.zombiemode_using_chugabud_perk)
-        p doGivePerk("specialty_finalstand");
+        p doGivePerk("specialty_finalstand", animation);
     if (isDefined(l._custom_perks) && isDefined(l._custom_perks["specialty_grenadepulldeath"]))
-        p doGivePerk("specialty_grenadepulldeath");
+        p doGivePerk("specialty_grenadepulldeath", animation);
     if (isDefined(l._custom_perks) && isDefined(l._custom_perks["specialty_flakjacket"]) && (l.script != "zm_buried"))
-        p doGivePerk("specialty_flakjacket");
+        p doGivePerk("specialty_flakjacket", animation);
     if (isDefined(l.zombiemode_using_deadshot_perk) && l.zombiemode_using_deadshot_perk)
-        p doGivePerk("specialty_deadshot");
+        p doGivePerk("specialty_deadshot", animation);
     if (isDefined(l.zombiemode_using_tombstone_perk) && l.zombiemode_using_tombstone_perk)
-        p doGivePerk("specialty_scavenger");
+        p doGivePerk("specialty_scavenger", animation);
 }
 
 /*
  * Displays animation while giving perk
  */
-doGivePerk(perk)
+doGivePerk(perk, animation)
 {
-    self endon("perk_abort_drinking");
-    if (!(self hasperk(perk) || (self maps/mp/zombies/_zm_perks::has_perk_paused(perk))))
-    {
-        gun = self maps/mp/zombies/_zm_perks::perk_give_bottle_begin(perk);
-        evt = self waittill_any_return("fake_death", "death", "player_downed", "weapon_change_complete");
-        if (evt == "weapon_change_complete")
-            self thread maps/mp/zombies/_zm_perks::wait_give_perk(perk, 1);
-        self maps/mp/zombies/_zm_perks::perk_give_bottle_end(gun, perk);
-        if (self maps/mp/zombies/_zm_laststand::player_is_in_laststand() || isDefined(self.intermission) && self.intermission)
-            return;
-        self notify("burp");
+	if ( animation )
+	{
+		self endon("perk_abort_drinking");
+		if (!(self hasperk(perk) || (self maps/mp/zombies/_zm_perks::has_perk_paused(perk))))
+		{
+		    gun = self maps/mp/zombies/_zm_perks::perk_give_bottle_begin(perk);
+		    evt = self waittill_any_return("fake_death", "death", "player_downed", "weapon_change_complete");
+		    if (evt == "weapon_change_complete")
+		        self thread maps/mp/zombies/_zm_perks::wait_give_perk(perk, 1);
+		    self maps/mp/zombies/_zm_perks::perk_give_bottle_end(gun, perk);
+		    if (self maps/mp/zombies/_zm_laststand::player_is_in_laststand() || isDefined(self.intermission) && self.intermission)
+		        return;
+		    self notify("burp");
+		}
     }
+    else
+    {
+    	give_perk(perk);
+    }
+}
+
+/*
+ * Displays crosshair for third person
+ */
+useCrosshairs(p)
+{
+	p.dot = drawCounter(p.dot, 0, 0, "default", 1.7);
+	p.dot.label = &"+";
 }

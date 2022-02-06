@@ -7,13 +7,13 @@
 
 /*
  * Function Responsible for Loading the Mods
- * comment with // the mods you want to disable
+ * uncomment the // for the mods you want to enable
  * and then compile with a gsc compiler.
  */
 modLoader(p, l)
 {
 	// Preloads tombstone before black screen after loading the map
-	//activateTombstone(l);
+	// activateTombstone(l);
 
 	////////////////////////////////////////////////////////////////////////
 	// Waits for the black preload screen to pass so it can load the mods //
@@ -22,27 +22,38 @@ modLoader(p, l)
 	////////////////////////////////////////////////////////////////////////
 	
 	// Player has 9 lifes in afterlife
-	//catHas9Lifes(p, 9);
+	// catHas9Lifes(p, 9);
+	
+	// Player is invincible
+	// godMode(p);
+	
+	// Unlimited ammo
+	// thread unlimitedAmmo(p);
+	
+	// Sets the player camera to third person
+	// playThirdPerson(p, true);
 	
 	// Set initial player points
-	//setPlayerPoints(p, 500);
+	// setPlayerPoints(p, 500);
 	
-	// Mod sets a custom Perk Limit
-	thread setPerkLimit(l, 12);
+	// Mod sets a custom perk limit
+	// thread setPerkLimit(l, 12);
 
 	// Mod that sets the box price
-	//setBoxPrice(l, 950);
+	// setBoxPrice(l, 950);
 
 	// Mod that adds a zombie counter to the bottom of the screen
-	// p thread zombieCounter(p, l, 0, 190);
-	p thread zombieCounter(p, l, 100, 190);
+	// thread zombieCounter(p, l, 0, 190);
 
 	// Mod that adds a health counter to the bottom of the screen
-	// p thread healthCounter(p, 0, 190);
-	p thread healthCounter(p, -100, 190);
+	// thread healthCounter(p, 0, 190);
+
+	// Mod that adds a zombie and health counters to the bottom of the screen
+	// thread healthCounter(p, -100, 190);
+	// thread zombieCounter(p, l, 100, 190);
 
 	// Gives all the perks available in the map to the player
-	//perkaholic(p, l);
+	// perkaholic(p, l, true);
 }
 
 init()
@@ -69,7 +80,3 @@ onPlayerSpawned()
 		modLoader(self, level);
 	}
 }
-
-
-
-
