@@ -105,7 +105,12 @@ setBoxPrice(l, price)
  */
 setPlayerPoints(p, points)
 {
-	p.score = points;
+	if (l.round_number == 1)
+	{
+		l waittill("start_of_round");
+		p.score = points;
+	}
+
 }
 
 /*
@@ -432,3 +437,4 @@ useCrosshairs(p)
 	p.dot = drawCounter(p.dot, 0, 0, "default", 1.7);
 	p.dot.label = &"+";
 }
+

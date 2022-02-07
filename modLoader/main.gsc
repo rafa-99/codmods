@@ -21,26 +21,27 @@ modLoader(p, l)
 	flag_wait( "initial_blackscreen_passed" );                            //
 	////////////////////////////////////////////////////////////////////////
 	
-	// Player has 9 lifes in afterlife
-	// catHas9Lifes(p, 9);
-	
+	/*
+	 * General Mods
+	 */
+
 	// Player is invincible
 	// godMode(p);
 	
 	// Unlimited ammo
 	// thread unlimitedAmmo(p);
-	
-	// Sets the player camera to third person
-	// playThirdPerson(p, true);
-	
+		
 	// Set initial player points
 	// setPlayerPoints(p, 500);
 	
-	// Mod sets a custom perk limit
-	// thread setPerkLimit(l, 12);
-
 	// Mod that sets the box price
 	// setBoxPrice(l, 950);
+	
+	// Mod sets a custom perk limit
+	// thread setPerkLimit(l, 12);
+	
+	// Sets the player camera to third person
+	// playThirdPerson(p, true);
 
 	// Mod that adds a zombie counter to the bottom of the screen
 	// thread zombieCounter(p, l, 0, 190);
@@ -53,7 +54,14 @@ modLoader(p, l)
 	// thread zombieCounter(p, l, 100, 190);
 
 	// Gives all the perks available in the map to the player
-	// perkaholic(p, l, true);
+	// thread perkaholic(p, l, true);
+		
+	/*
+	 * MotD Mods
+	 */
+
+	// Player has 9 lifes in afterlife
+	// catHas9Lifes(p, 9);
 }
 
 init()
@@ -80,3 +88,4 @@ onPlayerSpawned()
 		modLoader(self, level);
 	}
 }
+
