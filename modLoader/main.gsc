@@ -4,42 +4,53 @@
 #include maps/mp/zombies/_zm_utility;
 #include maps/mp/zombies/_zm_perks;
 #include maps/mp/zombies/_zm_afterlife;
+#include maps/mp/zombies/_zm_weapons;
 
-/*
- * Function Responsible for Loading the Mods
- * uncomment the // for the mods you want to enable
- * and then compile with a gsc compiler.
- */
-modLoader(p, l)
+// Loads the mods once the player connects to the server
+onConnectMods(p, l)
 {
-	// Preloads tombstone before black screen after loading the map
-	// activateTombstone(l);
-
-	////////////////////////////////////////////////////////////////////////
-	// Waits for the black preload screen to pass so it can load the mods //
-	// DO NOT TOUCH THIS LINE BELOW!!                                     //
-	flag_wait( "initial_blackscreen_passed" );                            //
-	////////////////////////////////////////////////////////////////////////
-	
 	/*
 	 * General Mods
 	 */
 
 	// Player is invincible
 	// godMode(p);
-	
+
 	// Unlimited ammo
 	// thread unlimitedAmmo(p);
-		
+
 	// Set initial player points
 	// setPlayerPoints(p, 500);
-	
+
 	// Mod that sets the box price
 	// setBoxPrice(l, 950);
-	
+
 	// Mod sets a custom perk limit
-	// thread setPerkLimit(l, 12);
-	
+	// thread setPerkLimit(l, 9);
+
+	// Gives all the perks available in the map to the player
+	// thread perkaholic(p, l);
+
+	/*
+	 * MotD Mods
+	 */
+
+	// Player has 9 lifes in afterlife
+	// catHas9Lifes(p, 9);
+}
+
+// Loads the mods once the player spawns inside the game
+onSpawnMods(p, l)
+{
+	////////////////////////////////////////////////////////////////////////
+	// Waits for the black preload screen to pass so it can load the mods //
+	// DO NOT TOUCH THIS LINE BELOW!!                                     //
+	flag_wait( "initial_blackscreen_passed" );                            //
+	////////////////////////////////////////////////////////////////////////
+
+	// Gives joined players a submachine gun and some points
+	// thread joinedBonus(p, l);
+
 	// Sets the player camera to third person
 	// playThirdPerson(p, true);
 
@@ -52,16 +63,6 @@ modLoader(p, l)
 	// Mod that adds a zombie and health counters to the bottom of the screen
 	// thread healthCounter(p, -100, 190);
 	// thread zombieCounter(p, l, 100, 190);
-
-	// Gives all the perks available in the map to the player
-	// thread perkaholic(p, l, true);
-		
-	/*
-	 * MotD Mods
-	 */
-
-	// Player has 9 lifes in afterlife
-	// catHas9Lifes(p, 9);
 }
 
 init()
@@ -74,18 +75,18 @@ onPlayerConnect()
 	while(1)
 	{
 		level waittill("connected", player);
+		thread onConnectMods(player, level);
 		player thread onPlayerSpawned();
 	}
 }
 
 onPlayerSpawned()
 {
-	self endon("disconnect");
-	level endon("game_ended");
-	while(1)
-	{
-		self waittill("spawned_player");
-		modLoader(self, level);
-	}
+    self endon("disconnect");
+    while(1)
+    {
+        self waittill("spawned_player");
+        onSpawnMods(self, level);
+    }
 }
 
