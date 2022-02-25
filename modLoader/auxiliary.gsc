@@ -16,7 +16,7 @@ drawCounter(counterVar, x, y, font, size)
  */
 checkAfterlife(p)
 {
-	if(isdefined(p.afterlife) && p.afterlife)
+	if(isDefined(p.afterlife) && p.afterlife)
 	{
 		return 0.2;
 	}
@@ -94,10 +94,9 @@ useCrosshairs(p)
  */
 giveCustomWeapon(p, weapon)
 {
-	if ( IsDefined(weapon) )
+	if ( isDefined(weapon) )
 	{
 		p giveWeapon(weapon);
-		p switchtoweapon(weapon);
 		p givemaxammo(weapon);
 	}
 }
@@ -108,12 +107,34 @@ giveCustomWeapon(p, weapon)
  */
 givePaPWeapon(p, baseWeapon)
 {
-	weapon = get_upgrade_weapon(baseWeapon, 0 );
-
-	if ( IsDefined(weapon) )
+	if ( isDefined(baseWeapon) )
 	{
-		p giveweapon(weapon, 0, p get_pack_a_punch_weapon_options(weapon));
-		p switchtoweapon(weapon);
-		p givemaxammo(weapon);
+		weapon = get_upgrade_weapon(baseWeapon, 0 );
+		if ( isDefined(weapon) )
+		{
+			p giveweapon(weapon, 0, p get_pack_a_punch_weapon_options(weapon));
+			p givemaxammo(weapon);
+		}
 	}
+}
+
+/*
+ * Checks if its the initial round
+ */
+initialRound(l)
+{
+	return (l.round_number == l.start_round);
+}
+
+/*
+ * Wait for the player to be revived in the initial round if is playing MotD
+ */
+waitMotd(p, l)
+{
+	if(isDefined(p.afterlife) && initialRound(l))
+	{
+		p waittill("player_revived");
+	}
+	
+	wait 1;
 }

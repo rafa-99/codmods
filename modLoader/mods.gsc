@@ -67,16 +67,21 @@ healthCounter(p, x, y)
  */
 perkaholic(p, l)
 {
+	flag_wait( "initial_blackscreen_passed" );
+	waitMotd(p, l);
+	
 	if (l.round_number == 1)
 	{
-		l waittill("start_of_round");
+		if (isDefined(p.customPrimary) && p.customPrimary)
+		{
+			p waittill("customPrimary");
+		}
+
 		giveAllPerks(p, l, true);
 	}
 	else
 	{
-		l waittill("start_of_round");
 		giveAllPerks(p, l, false);
-		p notify("burp");
 	}
 }
 
@@ -159,29 +164,96 @@ unlimitedAmmo(p)
  */
 joinedBonus(p, l)
 {
-	l waittill("start_of_round");
-	if (l.round_number > 5 && l.round_number <= 15)
+	if ((l.round_number - l.start_round) >= 5 && (l.round_number - l.start_round) < 15)
 	{
 		p.score += 2500;
-		if (l.script == "zm_tomb")
+		if (!isDefined(p.customSecondary))
 		{
-			giveCustomWeapon(p, "mp40_zm");
+			if (l.script == "zm_tomb")
+			{
+				setSecondaryWeapon(p, l, "mp40_zm", false);
+			}
+			else
+			{
+				setSecondaryWeapon(p, l, "mp5k_zm", false);
+			}
 		}
-		else
-		{
-			giveCustomWeapon(p, "mp5k_zm");
-		}
+
 	}
-	else if (l.round_number > 15)
+	else if ((l.round_number - l.start_round) >= 15)
 	{
 		p.score += 7500;
-		if (l.script == "zm_tomb")
+		if (!isDefined(p.customSecondary))
 		{
-			givePaPWeapon(p, "mp40_zm");
+			if (l.script == "zm_tomb")
+			{
+				setSecondaryWeapon(p, l, "mp40_zm", true);
+			}
+			else
+			{
+				setSecondaryWeapon(p, l, "mp5k_zm", true);
+			}
 		}
-		else
-		{
-			givePaPWeapon(p, "mp5k_zm");
-		}
+	}
+}
+
+/*
+ * Allows Infinite Afterlife Timer
+ */
+infinteAfterlifeTimer(p)
+{
+	p.infinite_mana = 1;
+}
+
+/*
+ * Sets player primary weapon
+ */
+setPrimaryWeapon(p, l, weapon, upgraded)
+{
+	p.customPrimary = true;
+	
+	waitMotd(p, l);
+	currentWeapon = p getcurrentweapon();
+	
+	if ( currentWeapon != "none" )
+	{
+		p takeweapon(currentWeapon);
+	}
+	
+	if ( upgraded )
+	{
+		givePaPWeapon(p, weapon);
+	}
+	else
+	{
+		giveCustomWeapon(p, weapon);
+	}
+	
+	p waittill("weapon_change_complete");
+	p notify("customPrimary");
+}
+
+/*
+ * Sets player primary weapon
+ */
+setSecondaryWeapon(p, l, weapon, upgraded)
+{
+	p.customSecondary = true;
+	
+	waitMotd(p, l);
+	offHandWeapon = p getcurrentoffhand();
+	
+	if ( offHandWeapon != "none" )
+	{
+		p takeweapon(offHandWeapon);
+	}
+	
+	if ( upgraded )
+	{
+		givePaPWeapon(p, weapon);
+	}
+	else
+	{
+		giveCustomWeapon(p, weapon);
 	}
 }

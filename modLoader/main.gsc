@@ -13,30 +13,65 @@ onConnectMods(p, l)
 	 * General Mods
 	 */
 
-	// Player is invincible
+	/*
+	 * Player is invincible
+	 */
 	// godMode(p);
 
-	// Unlimited ammo
+	/*
+	 * Infinte ammo
+	 */
 	// thread unlimitedAmmo(p);
 
-	// Set initial player points
+	/*
+	 * Player initial points
+	 *
+	 * Customizable parameters:
+	 * points - Number of points the player will start the game (ex: 500)
+	 */
 	// setPlayerPoints(p, 500);
 
-	// Mod that sets the box price
+	/*
+	 * Custom Mystery Box price
+	 *
+	 * Customizable parameters:
+	 * price - Ammount of points required to hit the box (ex: 950)
+	 */
 	// setBoxPrice(l, 950);
 
-	// Mod sets a custom perk limit
-	// thread setPerkLimit(l, 9);
+	/*
+	 * Custom buyable perk limit
+	 *
+	 * Customizable parameters:
+	 * numberOfPerks - Ammount of perks the player is allowed to purchase (ex: 9)
+	 */
+	// setPerkLimit(l, 9);
 
-	// Gives all the perks available in the map to the player
+	/*
+	 * Gives all the map available perks to the player
+	 */
 	// thread perkaholic(p, l);
 
 	/*
 	 * MotD Mods
 	 */
 
-	// Player has 9 lifes in afterlife
+	/*
+	 * Custom number of afterlifes
+	 *
+	 * Customizable parameters:
+	 * lifes - Ammount of lifes available in afterlife (ex: 9)
+	 *
+	 * Visual Bug:
+	 * If lifes parameter above 3, the in-game after-life counter wont't show the number.
+	 */
 	// catHas9Lifes(p, 9);
+
+	/*
+	 * Allows infinte afterlife timer
+	 */
+	// infinteAfterlifeTimer(p);
+
 }
 
 // Loads the mods once the player spawns inside the game
@@ -45,22 +80,65 @@ onSpawnMods(p, l)
 	////////////////////////////////////////////////////////////////////////
 	// Waits for the black preload screen to pass so it can load the mods //
 	// DO NOT TOUCH THIS LINE BELOW!!                                     //
-	flag_wait( "initial_blackscreen_passed" );                            //
+	flag_wait( "initial_blackscreen_passed" );                           //
 	////////////////////////////////////////////////////////////////////////
 
-	// Gives joined players a submachine gun and some points
+	/*
+	 * Gives the player a custom primary weapon
+	 *
+	 * Customizable parameters:
+	 * weapon - Weapon name string available in the README.md file (ex: galil_zm (Galil))
+	 * upgraded - Toggle for pack-a-punched given weapon (ex: true)
+	 */
+	// thread setPrimaryWeapon(p, l, "galil_zm", true);
+
+	/*
+	 * Gives the player a custom secondary weapon
+	 *
+	 * Customizable parameters:
+	 * weapon - Weapon name string available in the README.md file (ex: ray_gun_zm (Ray Gun))
+	 * upgraded - Toggle for pack-a-punched given weapon (ex: false)
+	 */
+	// thread setSecondaryWeapon(p, l, "ray_gun_zm", false);
+
+	/*
+	 * Gives joining players a secondary submachine gun and a couple of points
+	 */
 	// thread joinedBonus(p, l);
 
-	// Sets the player camera to third person
+	/*
+	 * Sets the player camera to the third person
+	 *
+	 * Customizable parameters:
+	 * crosshair - Toggle crosshair for third person camera (ex: true)
+	 */
 	// playThirdPerson(p, true);
 
-	// Mod that adds a zombie counter to the bottom of the screen
+	/*
+	 * Adds a zombie counter to the bottom of the screen
+	 *
+	 * Customizable parameters:
+	 * x - X coordinates distance (ex: 0)
+	 * y - Y coordinates distance (ex: 190)
+	 */
 	// thread zombieCounter(p, l, 0, 190);
 
-	// Mod that adds a health counter to the bottom of the screen
+	/*
+	 * Adds a health counter to the bottom of the screen
+	 *
+	 * Customizable parameters:
+	 * x - X coordinates distance (ex: 0)
+	 * y - Y coordinates distance (ex: 190)
+	 */
 	// thread healthCounter(p, 0, 190);
 
-	// Mod that adds a zombie and health counters to the bottom of the screen
+	/*
+	 * Adds a zombie and a health counter to the bottom of the screen
+	 *
+	 * Customizable parameters:
+	 * x - X coordinates distance (ex: 100 & -100)
+	 * y - Y coordinates distance (ex: 190)
+	 */
 	// thread healthCounter(p, -100, 190);
 	// thread zombieCounter(p, l, 100, 190);
 }
@@ -89,4 +167,3 @@ onPlayerSpawned()
         onSpawnMods(self, level);
     }
 }
-
