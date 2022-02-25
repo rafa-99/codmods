@@ -6,17 +6,17 @@ A bunch of mods for black ops 2 zombies
 
 1. Download the AIO Script from the releases.
 
-2. Edit the script with your favourite text editor, and update the functions `onConnectMods` and `onSpawnMods` by uncommenting and changing up the parameters to your liking (*All the parameters that can be costumized, will be documented in the function call*).
+2. Edit the script with your favorite text editor, and update the functions `onConnectMods` and `onSpawnMods` by uncommenting and changing up the parameters to your liking (*All the parameters that can be customized, will be documented in the function call*).
 
 ![Disabled Mod](images/disabled.png)
 
 ![Enabled player initial points and set to 10000](images/enabled.png)
 
-3. Using the GSC Compiler (from GSC Toolkit), simply drag and drop your raw GSC script ontop of Compiler.exe and it should spit out a compiled version.
+3. Using the GSC Compiler (from GSC Toolkit), simply drag and drop your raw GSC script on top of Compiler.exe and it should spit out a compiled version.
 
 ![Compilation Process](images/OWtguHd.gif)
 
-*Note: If you get an error, make sure your script isn't already precompiled (open it, and if it looks like gibberish, it is already compiled)*
+*Note: If you get an error, make sure your script isn't already precompiled (open it, and if it looks like gibberish, it was already compiled)*
 
 ![Error](images/JgwqeCy.png)
 
@@ -31,7 +31,7 @@ When launching your server or a custom game, you will know if all has gone well 
 ## Available Mods
 
 * GodMode;
-* Infinte ammo;
+* Infinite ammo;
 * Custom player Points;
 * Custom box Price;
 * Custom buyable Perk Limit;
