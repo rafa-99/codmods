@@ -32,9 +32,9 @@ When launching your server or a custom game, you will know if all has gone well 
 
 * GodMode;
 * Infinite ammo;
-* Custom player Points;
-* Custom box Price;
-* Custom buyable Perk Limit;
+* Custom player points;
+* Custom box price;
+* Custom buyable perk limit;
 * Perkaholic;
 * Custom afterlife lifes;
 * Infinite time in afterlife;
@@ -43,6 +43,8 @@ When launching your server or a custom game, you will know if all has gone well 
 * Late joined player bonus;
 * Zombies counter;
 * Health counter;
+* Night mode;
+* Custom alive zombies limit.
 
 ## Weapons List
 

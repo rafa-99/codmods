@@ -38,6 +38,14 @@ onConnectMods(p, l)
 	 * price - Ammount of points required to hit the box (ex: 950)
 	 */
 	// setBoxPrice(l, 950);
+	
+	/*
+	 * Custom alive zombies limit
+	 *
+	 * Customizable parameters:
+	 * limit - Ammount of zombies alive at the same time (ex: 24)
+	 */
+	// setZombieLimit(l, 24)
 
 	/*
 	 * Custom buyable perk limit
@@ -51,6 +59,17 @@ onConnectMods(p, l)
 	 * Gives all the map available perks to the player
 	 */
 	// thread perkaholic(p, l);
+	
+	/*
+	 * Enables night mode in all maps
+	 *
+	 * Visual Bug:
+	 * In MotD, while in afterlife, sparks are invisible when shot
+	 */
+	// thread nightmode(p, l);
+	
+	/*
+	 */
 
 	/*
 	 * MotD Mods
@@ -102,7 +121,7 @@ onSpawnMods(p, l)
 	// thread setSecondaryWeapon(p, l, "ray_gun_zm", false);
 
 	/*
-	 * Gives joining players a secondary submachine gun and a couple of points
+	 * Gives joining players a secondary submachine gun, a couple of points and some perks
 	 */
 	// thread joinedBonus(p, l);
 
@@ -167,3 +186,4 @@ onPlayerSpawned()
         onSpawnMods(self, level);
     }
 }
+

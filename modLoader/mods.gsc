@@ -166,6 +166,11 @@ joinedBonus(p, l)
 {
 	if ((l.round_number - l.start_round) >= 5 && (l.round_number - l.start_round) < 15)
 	{
+		if (isDefined(l.zombiemode_using_juggernaut_perk) && l.zombiemode_using_juggernaut_perk)
+		{
+			p doGivePerk("specialty_armorvest", false);
+		}
+
 		p.score += 2500;
 		if (!isDefined(p.customSecondary))
 		{
@@ -182,6 +187,17 @@ joinedBonus(p, l)
 	}
 	else if ((l.round_number - l.start_round) >= 15)
 	{
+		if (isDefined(l.zombiemode_using_juggernaut_perk) && l.zombiemode_using_juggernaut_perk)
+		{
+			p doGivePerk("specialty_armorvest", false);
+		}
+		
+		
+		if (isDefined(l.zombiemode_using_doubletap_perk) && l.zombiemode_using_doubletap_perk)
+		{
+			p doGivePerk("specialty_rof", false);
+		}
+		
 		p.score += 7500;
 		if (!isDefined(p.customSecondary))
 		{
@@ -256,4 +272,29 @@ setSecondaryWeapon(p, l, weapon, upgraded)
 	{
 		giveCustomWeapon(p, weapon);
 	}
+}
+
+/*
+ * Enables night mode maps
+ */
+nightmode(p, l)
+{
+	p setclientdvar( "r_dof_enable", 0 );
+	p setclientdvar( "r_lodBiasRigid", -1000 );
+	p setclientdvar( "r_lodBiasSkinned", -1000 );
+	p setclientdvar( "r_enablePlayerShadow", 1 );
+	p setclientdvar( "r_skyTransition", 1 );
+	p setclientdvar( "sm_sunquality", 2 );
+	p setclientdvar( "vc_fbm", "0 0 0 0" );
+	p setclientdvar( "vc_fsm", "1 1 1 1" );
+	p thread visualFix(l);
+	p thread enableNightMode(l);
+}
+
+/*
+ * Sets the max zombies to a custom value
+ */
+setZombieLimit(l, limit)
+{
+	l.zombie_ai_limit = limit;
 }

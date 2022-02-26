@@ -76,7 +76,10 @@ doGivePerk(perk, animation)
     }
     else
     {
-    	self give_perk(perk);
+    	if (!(self hasperk(perk) || (self maps/mp/zombies/_zm_perks::has_perk_paused(perk))))
+    	{
+    		self give_perk(perk);
+    	}
     }
 }
 
@@ -137,4 +140,74 @@ waitMotd(p, l)
 	}
 	
 	wait 1;
+}
+
+/*
+ * Fixing some scenary lighting
+ */
+visualFix(l)
+{
+	if( l.script == "zm_buried" )
+	{
+		while( 1 )
+		{	
+			self setclientdvar( "r_lightTweakSunLight", 1 );
+			self setclientdvar( "r_sky_intensity_factor0", 0 );
+			wait 0.05;
+		}
+	}
+	else if( l.script == "zm_prison" || l.script == "zm_tomb" )
+	{
+		while( getDvar( "r_lightTweakSunLight" ) != 0 )
+		{
+			for( i = getDvar( "r_lightTweakSunLight" ); i >= 0; i = ( i - 0.05 ) )
+			{
+				self setclientdvar( "r_lightTweakSunLight", i );
+				wait 0.05;
+			}
+			wait 0.05;
+		}
+	}
+	else return;
+}
+
+/*
+ * Tweaks some lighting setting and enables nightmode
+ */
+enableNightMode(l)
+{
+	if( !isDefined( l.default_r_exposureValue ) )
+		l.default_r_exposureValue = getDvar( "r_exposureValue" );
+	if( !isDefined( l.default_r_lightTweakSunLight ) )
+		l.default_r_lightTweakSunLight = getDvar( "r_lightTweakSunLight" );
+	if( !isDefined( l.default_r_sky_intensity_factor0 ) )
+		l.default_r_sky_intensity_factor0 = getDvar( "r_sky_intensity_factor0" );
+	
+	self setclientdvar( "r_filmUseTweaks", 1 );
+	self setclientdvar( "r_bloomTweaks", 1 );
+	self setclientdvar( "r_exposureTweak", 1 );
+	self setclientdvar( "vc_rgbh", "0.1 0 0.3 0" );
+	self setclientdvar( "vc_yl", "0 0 0.25 0" );
+	self setclientdvar( "vc_yh", "0.02 0 0.1 0" );
+	self setclientdvar( "vc_rgbl", "0.02 0 0.1 0" );
+	self setclientdvar( "r_exposureValue", 3.9 );
+	self setclientdvar( "r_lightTweakSunLight", 1 );
+	self setclientdvar( "r_sky_intensity_factor0", 0 );
+	
+	if( l.script == "zm_buried" )
+	{
+		self setclientdvar( "r_exposureValue", 3.5 );
+	}
+	else if( l.script == "zm_tomb" )
+	{
+		self setclientdvar( "r_exposureValue", 4 );
+	}
+	else if( l.script == "zm_nuked" )
+	{
+		self setclientdvar( "r_exposureValue", 5.6 );
+	}
+	else if( l.script == "zm_highrise" )
+	{
+		self setclientdvar( "r_exposureValue", 3.9 );
+	}
 }
