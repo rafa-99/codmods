@@ -67,9 +67,6 @@ onConnectMods(p, l)
 	 * In MotD, while in afterlife, sparks are invisible when shot
 	 */
 	// thread nightmode(p, l);
-	
-	/*
-	 */
 
 	/*
 	 * MotD Mods
@@ -186,5 +183,6 @@ onPlayerSpawned()
         onSpawnMods(self, level);
     }
 }
+
 
 
