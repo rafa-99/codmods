@@ -12,15 +12,13 @@ A bunch of mods for black ops 2 zombies
 
 ![Enabled player initial points and set to 10000](images/enabled.png)
 
-3. Using the GSC Compiler (from GSC Toolkit), simply drag and drop your raw GSC script on top of Compiler.exe and it should spit out a compiled version.
+3. Using the install script, simply drag and drop your raw GSC script on top of installMods.bast and it should automatically install the mods into the game mods folder.
 
-![Compilation Process](images/OWtguHd.gif)
+![Compilation Process](images/install.gif)
 
 *Note: If you get an error, make sure your script isn't already precompiled (open it, and if it looks like gibberish, it was already compiled)*
 
 ![Error](images/JgwqeCy.png)
-
-4. Grab the compiled binary, and drag and drop it into `%localappdata%\Plutonium\storage\t6\scripts\zm`, if this destination does not exist, then proceed to create it.
 
 ## Using
 
