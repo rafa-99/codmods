@@ -1,20 +1,15 @@
-# bo2-plutonium-gsc
+# codmods
 
 A bunch of mods for black ops 2 zombies
 
 ## Install
 
-1. Download the AIO Script from the releases.
+1. Clone or download this repository;
 
-2. Edit the script with your favorite text editor, and update the functions `onConnectMods` and `onSpawnMods` by uncommenting and changing up the parameters to your liking (*All the parameters that can be customized, will be documented in the function call*).
+2. Edit the `sneed.gsc` file, by uncommenting them, between the MAIN and the DANGER zones respectively.
+*Note: You may also want to edit some of the functions parameters in order to match your preferences.*
 
-![Disabled Mod](images/disabled.png)
-
-![Enabled player initial points and set to 10000](images/enabled.png)
-
-3. Using the install script, simply drag and drop your raw GSC script on top of installMods.bast and it should automatically install the mods into the game mods folder.
-
-![Compilation Process](images/install.gif)
+3. Using the install script, run installMods.bat and it should automatically install the mods into the game mods folder.
 
 *Note: If you get an error, make sure your script isn't already precompiled (open it, and if it looks like gibberish, it was already compiled)*
 
