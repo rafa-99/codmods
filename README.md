@@ -7,7 +7,8 @@ A bunch of mods for black ops 2 zombies
 1. Clone or download this repository;
 
 2. Edit the `sneed.gsc` file, by uncommenting them, between the MAIN and the DANGER zones respectively.
-*Note: You may also want to edit some of the functions parameters in order to match your preferences.*
+
+*Note: You may also want to edit some of the functions parameters in order to match your preferences*
 
 3. Using the install script, run installMods.bat and it should automatically install the mods into the game mods folder.
 
