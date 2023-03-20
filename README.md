@@ -22,25 +22,8 @@ When launching your server or a custom game, you will know if all has gone well 
 
 ![Script Loaded](images/oVlCBnI.png)
 
-## Available Mods
-
-* GodMode;
-* Infinite ammo;
-* Custom player points;
-* Custom box price;
-* Custom buyable perk limit;
-* Perkaholic;
-* Custom afterlife lifes;
-* Infinite time in afterlife;
-* Custom primary weapon;
-* Custom secondary weapon;
-* Late joined player bonus;
-* Zombies counter;
-* Health counter;
-* Night mode;
-* Custom alive zombies limit.
-
 ## Weapons List
+This section is the full reference of weapons codename to use with the customPrimary/SecondaryWeapon function.
 
 [Source](https://github.com/Snakelegendary/BO2-Plutonium-Modding-Guide/wiki/Weapons-List)
 
